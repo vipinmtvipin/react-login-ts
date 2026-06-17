@@ -1,7 +1,10 @@
 import slsImg from "../../assets/sls_logo_white.svg";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
-
+import { useCreateTodo } from "../../domain/usecases/login_usecase";
+import { LoginRepositoryImpl } from "../../data/repository/LoginRepositoryImpl";
+import { LoginDataSource } from "../../data/source/LoginDataSource";
+import { useLogin } from "../../domain/usecases/login_usecase";
 import React, { useState } from "react";
 import {
   FiUser,
@@ -21,7 +24,9 @@ const Login: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  return (
+
+  const loginUseCase = useCreateTodo(new LoginRepositoryImpl(new LoginDataSource()));
+
     <div className={styles.loginPage}>
       <div className={styles.languageSwitch}>
         <FiGlobe />
@@ -111,7 +116,7 @@ const Login: React.FC = () => {
       <div className={styles.footer}>
         <p>All rights reserved to STC Channels 2025 ©</p>
         <p>App Version: 4.0.45 (454)</p>
-      </div>
+          <Button type="button" children={<div>Sign in</div>} onClick={() => loginUseCase.createTodo({ username, password })} />
     </div>
   );
 };
