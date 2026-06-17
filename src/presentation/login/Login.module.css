@@ -1,0 +1,325 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.loginPage {
+  min-height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+  background: #f7f7f9;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.languageSwitch {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  background: #e9d5ff;
+  color: #6d28d9;
+  margin: 20px 20px 0 0;
+  border-radius: 500px;
+}
+
+.loginContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  padding: 10px;
+}
+
+
+.brandingPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #5b21b6 0%, #8b5cf6 100%);
+  color: white;
+  align-items: center;
+  justify-items: center;
+  padding: 40px 20px;
+  margin: 20px 50px;
+  box-shadow: 0 20px 40px rgba(91, 33, 182, 0.25);
+}
+
+.companyLogo {
+  width: 150px;
+  height: 150px;
+  margin-top: 10px;
+  object-fit: contain;
+}
+
+.systemTitle {
+  text-align: center;
+  line-height: 1.3;
+  color: white;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.divider {
+  width: 70px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 100px;
+  margin: 10px 0 20px;
+}
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  text-align: start;
+  gap: 18px;
+  font-size: 20px;
+  flex-direction: row;
+}
+
+.featureIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.loginCard {
+  flex: 1;
+  background: white;
+  border-radius: 24px;
+  padding: 60px 50px;
+  margin: 20px 50px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.loginHeader {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.headerLine {
+  width: 6px;
+  height: 60px;
+  background: #6d28d9;
+  border-radius: 500px;
+}
+
+.loginHeader h2 {
+  font-size: 28px;
+  color: #0f172a;
+  text-align: left;
+}
+
+.loginHeader p {
+  color: #64748b;
+  margin-top: 4px;
+  text-align: left;
+  justify-content: start;
+}
+
+.loginOptions {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  color: #666;
+}
+
+.rememberMe input {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #04378e;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.forgotBtn {
+  border: none;
+  background: transparent;
+  color: #6d28d9;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.spacer {
+  display: flex;
+  gap: 30px;
+  height: 30px;
+}
+.footer {
+  text-align: center;
+  align-items: center;
+  color: #94a3b8;
+  margin-bottom: 30px;
+}
+
+.footer p {
+  margin-bottom: 1px;
+  text-align: center;
+  align-items: center;
+  font-size: small;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+@media screen and (max-width: 1024px) {
+  .brandingPanel,
+  .loginCard {
+    margin: 20px;
+  }
+
+  .systemTitle {
+    font-size: 30px;
+  }
+
+  .featureItem {
+    font-size: 18px;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+@media screen and (max-width: 768px) {
+  .loginContainer {
+    flex-direction: column;
+    padding: 16px;
+    gap: 20px;
+  }
+
+  /* Right panel first  use order key*/
+  .loginCard {
+    order: 1;
+    width: 100%;
+    margin: 0;
+    padding: 30px 20px;
+  }
+
+  /* Left panel second */
+  .brandingPanel {
+    order: 2;
+    width: 100%;
+    margin: 0;
+    padding: 30px 20px;
+  }
+
+  .companyLogo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .systemTitle {
+    font-size: 24px;
+  }
+
+  .featureItem {
+    font-size: 16px;
+  }
+
+  .featureIcon {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .loginHeader {
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .headerLine {
+    height: 45px;
+  }
+
+  .loginHeader h2 {
+    font-size: 24px;
+  }
+
+  .loginOptions {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .forgotBtn {
+    padding-left: 28px;
+  }
+
+  .languageSwitch {
+    margin: 15px 15px 0 0;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+@media screen and (max-width: 480px) {
+  .loginCard {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .brandingPanel {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .systemTitle {
+    font-size: 20px;
+  }
+
+  .featureList {
+    gap: 12px;
+  }
+
+  .featureItem {
+    font-size: 14px;
+    gap: 12px;
+  }
+
+  .footer {
+    padding: 10px;
+  }
+
+  .footer p {
+    font-size: 12px;
+  }
+}

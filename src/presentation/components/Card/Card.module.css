@@ -1,0 +1,17 @@
+.card {
+  background-color: #ffffef;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10), 0 1px 4px rgba(0, 0, 0, 0.06);
+  max-width: 400px;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .card {
+    max-width: 100%;
+    padding: 1.25rem;
+    border-radius: 8px;
+  }
+}

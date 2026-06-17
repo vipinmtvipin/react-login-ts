@@ -1,0 +1,97 @@
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px 12px;
+  border-radius: 8px;
+  gap: 8px;
+  transition: border 0.3s;
+}
+
+/* Input field */
+.inputWrapper input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 16px;
+}
+
+/* Focus effect (important) */
+.inputWrapper:focus-within {
+  border: 1px solid #3b82f6;   /* blue border on focus */
+  box-shadow: 0 0 0 3px rgba(190, 192, 195, 0.2);
+}
+
+/* Icons */
+.icon {
+  font-size: 16px;
+  color: #666;
+}
+
+.left {
+  margin-right: 4px;
+}
+
+.right {
+  cursor: pointer;
+}
+
+
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+}
+
+.label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  text-align: start;
+}
+
+
+.inputIcon {
+  color: #9ca3af;
+  font-size: 22px;
+}
+
+.input {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.9375rem;
+  color: #111827;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.inputError {
+  border-color: #ef4444;
+}
+
+.inputError:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.error {
+  font-size: 0.8125rem;
+  color: #ef4444;
+  margin-top: 2px;
+}
