@@ -1,8 +1,8 @@
-export const BASE_URL = 'https://user/v1';
+export const BASE_URL = 'https://api.restful-api.dev';
 
 export const API_ENDPOINTS = {
   AUTH: {
-    LOGIN: '/auth/login',
+    LOGIN: '/objects',
   },
   USER: {
     PROFILE: '/users/profile',

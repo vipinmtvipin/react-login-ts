@@ -1,11 +1,12 @@
 import slsImg from "../../assets/sls_logo_white.svg";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
-import { useCreateTodo } from "../../domain/usecases/login_usecase";
-import { LoginRepositoryImpl } from "../../data/repository/LoginRepositoryImpl";
-import { LoginDataSource } from "../../data/source/LoginDataSource";
-import { useLogin } from "../../domain/usecases/login_usecase";
+import styles from "./Login.module.css";
 import React, { useState } from "react";
+import { useLogin } from "../login/hooks/useLogin";
+import { useLoginValidation } from "../login/hooks/useLoginValidation";
+import { LoginRequest } from "../../data/model/LoginRequest";
+import { toast } from "react-toastify";
 import {
   FiUser,
   FiLock,
@@ -17,16 +18,38 @@ import {
   FiBarChart2,
 } from "react-icons/fi";
 
-import styles from "./Login.module.css";
-
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const { login, loading, error } = useLogin();
+  const { errors, validate } = useLoginValidation();
 
-  const loginUseCase = useCreateTodo(new LoginRepositoryImpl(new LoginDataSource()));
+  const handleLogin = async () => {
+    try {
 
+       const isValid = validate(username, password);
+
+  if (!isValid) return;
+
+      const loginRequest: LoginRequest = {
+        username: username,
+        password: password,
+      };
+
+      const user = await login(loginRequest);
+      setPassword("");
+      setUsername("");
+      toast.success(`Login successful - ID: ${user.id}`);
+      console.log("Login Success", user.id);
+    } catch (err) {
+      console.error("Login failed", err);
+      alert(error);
+    }
+  };
+
+  return (
     <div className={styles.loginPage}>
       <div className={styles.languageSwitch}>
         <FiGlobe />
@@ -84,6 +107,7 @@ const Login: React.FC = () => {
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your username"
             name="username"
+            error={errors.username}
             prefixIcon={<FiUser />}
           />
 
@@ -95,6 +119,7 @@ const Login: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
             name="password"
+            error={errors.password}
             prefixIcon={<FiLock />}
             suffixIcon={showPassword ? <FiEyeOff /> : <FiEye />}
             onSuffixClick={() => setShowPassword(!showPassword)}
@@ -109,16 +134,21 @@ const Login: React.FC = () => {
             <button className={styles.forgotBtn}>Forget Password</button>
           </div>
 
-          <Button type="button" children={<div>Sign in</div>} />
+          <Button
+            type="button"
+            children={<div>Sign in</div>}
+            loading={loading}
+            onClick={handleLogin}
+          />
         </div>
       </div>
 
       <div className={styles.footer}>
         <p>All rights reserved to STC Channels 2025 ©</p>
         <p>App Version: 4.0.45 (454)</p>
-          <Button type="button" children={<div>Sign in</div>} onClick={() => loginUseCase.createTodo({ username, password })} />
+      </div>
     </div>
   );
 };
 
-export default Login;
+export default LoginPage;
