@@ -1,9 +1,7 @@
-
 import { LoginResponse } from "../../data/model/LoginResponse";
 
+import { LoginRequest } from "../../data/model/LoginRequest";
+
 export interface AuthRepository {
-  login(
-    username: string,
-    password: string
-  ): Promise<LoginResponse>;
+  login(request: LoginRequest): Promise<LoginResponse>;
 }

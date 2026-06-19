@@ -1,16 +1,17 @@
-import { type AuthRepository } from '../repository/AuthRepository';
-import { type User } from '../entity/User';
+import { AuthRepository } from "../../domain/repository/AuthRepository";
 
+import { LoginResponse } from "../../data/model/LoginResponse";
+
+import { LoginRequest } from "../../data/model/LoginRequest";
 
 export class LoginUseCase {
-  private authRepository: AuthRepository;
+  private repository: AuthRepository;
 
-  constructor(authRepository: AuthRepository) {
-    this.authRepository = authRepository;
+  constructor(repository: AuthRepository) {
+    this.repository = repository;
   }
 
-  async execute(username: string, password: string): Promise<User> {
-    const result = await this.authRepository.login(username, password);
-    return result;
+  execute(request: LoginRequest): Promise<LoginResponse> {
+    return this.repository.login(request);
   }
 }
