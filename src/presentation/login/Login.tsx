@@ -2,7 +2,7 @@ import slsImg from "../../assets/sls_logo_white.svg";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
 import styles from "./Login.module.css";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useLogin } from "../login/hooks/useLogin";
 import { useLoginValidation } from "../login/hooks/useLoginValidation";
 import { LoginRequest } from "../../data/model/LoginRequest";
@@ -23,31 +23,40 @@ const LoginPage: React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { login, loading, error } = useLogin();
-  const { errors, validate } = useLoginValidation();
+  const { login, loading, error} = useLogin();
+  const { errors, validate, validateField } = useLoginValidation();
 
-  const handleLogin = async () => {
+  const handleFieldBlur = useCallback(
+    (field: "username" | "password") => {
+      validateField(field, field === "username" ? username : password);
+    },
+    [username, password, validateField]
+  );
+
+  const handleLogin = useCallback(async () => {
     try {
-
-       const isValid = validate(username, password);
-
-  if (!isValid) return;
+    
+      const isValid = validate(username, password);
+      if (!isValid) return;
 
       const loginRequest: LoginRequest = {
-        username: username,
+        username: username.trim(),
         password: password,
       };
 
       const user = await login(loginRequest);
+
       setPassword("");
       setUsername("");
-      toast.success(`Login successful - ID: ${user.id}`);
-      console.log("Login Success", user.id);
+      console.log("Login Success", user!.id);
+      toast.success(`Login successful - ID: ${user!.id}`);
     } catch (err) {
       console.error("Login failed", err);
-      alert(error);
+      if (error) {
+        toast.error(error);
+      }
     }
-  };
+  }, [username, password, validate, login, error]);
 
   return (
     <div className={styles.loginPage}>
@@ -105,6 +114,7 @@ const LoginPage: React.FC = () => {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            onBlur={() => handleFieldBlur("username")}
             placeholder="Enter your username"
             name="username"
             error={errors.username}
@@ -117,6 +127,7 @@ const LoginPage: React.FC = () => {
             type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onBlur={() => handleFieldBlur("password")}
             placeholder="Enter your password"
             name="password"
             error={errors.password}

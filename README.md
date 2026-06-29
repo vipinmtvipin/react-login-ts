@@ -2,6 +2,16 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+# Login Screen 
+
+- Implemented /login api using Axios
+- Form validation
+- Exception handing
+- Followed Clean architecture
+
+<img width="677" height="513" alt="Screenshot 2026-06-18 at 8 10 02 PM" src="https://github.com/user-attachments/assets/036e22bf-6619-4ce4-b4ba-f9771ab242c2" />
+
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
