@@ -22,20 +22,20 @@ const LoginPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [result, setResult] = useState<number | null>(null);
 
-  const { login, loading, error} = useLogin();
+  const { login, loading, error } = useLogin();
   const { errors, validate, validateField } = useLoginValidation();
 
   const handleFieldBlur = useCallback(
     (field: "username" | "password") => {
       validateField(field, field === "username" ? username : password);
     },
-    [username, password, validateField]
+    [username, password, validateField],
   );
 
   const handleLogin = useCallback(async () => {
     try {
-    
       const isValid = validate(username, password);
       if (!isValid) return;
 
@@ -57,6 +57,31 @@ const LoginPage: React.FC = () => {
       }
     }
   }, [username, password, validate, login, error]);
+
+  /// Example: this one for heavy task calculation using web worker
+  // to avoid blocking the main thread.
+  const calculateHeavyTask = () => {
+    try {
+      const worker = new Worker(
+        new URL("../../core/utils/BagroundWorker.ts", import.meta.url),
+        { type: "module" },
+      );
+
+      worker.onerror = (e) => {
+        console.error("Worker Error:", e);
+      };
+
+      worker.onmessage = (e: MessageEvent<number>) => {
+        console.log("Worker Result:", e.data);
+        setResult(e.data);
+        worker.terminate();
+      };
+
+      worker.postMessage(100000000);
+    } catch (e) {
+      console.error("Create Worker Failed:", e);
+    }
+  };
 
   return (
     <div className={styles.loginPage}>
@@ -137,12 +162,16 @@ const LoginPage: React.FC = () => {
           />
 
           <div className={styles.loginOptions}>
-            <label className={styles.rememberMe}>
-              <input type="checkbox" />
-              <span>Remember me</span>
-            </label>
+            <div>
+              <label className={styles.rememberMe}>
+                <input type="checkbox" />
+                Remember Me
+              </label>
+            </div>
 
-            <button className={styles.forgotBtn}>Forget Password</button>
+            <button onClick={calculateHeavyTask} className={styles.forgotBtn}>
+              Forget Password
+            </button>
           </div>
 
           <Button
@@ -151,6 +180,10 @@ const LoginPage: React.FC = () => {
             loading={loading}
             onClick={handleLogin}
           />
+
+          <p className={styles.resultText}>
+            {result !== null ? `Heavy Task Result: ${result}` : ""}
+          </p>
         </div>
       </div>
 
