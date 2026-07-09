@@ -60,6 +60,12 @@ const Input: React.FC<InputProps> = ({
         <div
           className={styles.inputIcon}
           onClick={onSuffixClick}
+          onKeyDown={(e) => {
+            if (onSuffixClick && (e.key === 'Enter' || e.key === ' ')) {
+              e.preventDefault();
+              onSuffixClick();
+            }
+          }}
           role={onSuffixClick ? 'button' : undefined}
           tabIndex={onSuffixClick ? 0 : undefined}
           style={{ cursor: onSuffixClick ? 'pointer' : 'default' }}

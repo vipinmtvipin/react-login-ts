@@ -37,7 +37,7 @@ const axiosInstance: AxiosInstance = axios.create({
 // ---------------------------------------------------------------------------
 
 /**
- * Injects the ****** from storage into every outgoing request.
+ * Injects the access token from storage into every outgoing request.
  * If no token is present the request is still forwarded without the
  * Authorization header (public endpoints do not require one).
  */
@@ -45,7 +45,7 @@ axiosInstance.interceptors.request.use(
   (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
     const token = TokenStorage.get();
     if (token) {
-      config.headers.Authorization = ['Bearer', token].join(' ');
+      config.headers.Authorization = 'Bearer ' + token;
     }
     return config;
   },

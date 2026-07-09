@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { AppError } from '../errors/AppError';
 import { toAppError } from '../errors/ErrorHandler';
 
@@ -47,6 +47,13 @@ export function useAsync<T, A extends unknown[]>(
 ): UseAsyncReturn<T, A> {
   const [state, setState] = useState<AsyncState<T>>(initialState<T>());
   const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
 
   const execute = useCallback(
     async (...args: A): Promise<T | null> => {

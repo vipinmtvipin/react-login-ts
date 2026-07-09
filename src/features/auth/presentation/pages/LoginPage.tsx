@@ -55,6 +55,10 @@ const LoginPage: React.FC = () => {
     [username, password, validateField],
   );
 
+  const handleTogglePassword = useCallback(() => {
+    setShowPassword((prev) => !prev);
+  }, []);
+
   const handleSubmit = useCallback(async () => {
     const isValid = validate(username, password);
     if (!isValid) return;
@@ -141,7 +145,7 @@ const LoginPage: React.FC = () => {
             error={errors.password}
             prefixIcon={<FiLock />}
             suffixIcon={showPassword ? <FiEyeOff /> : <FiEye />}
-            onSuffixClick={() => setShowPassword((prev) => !prev)}
+            onSuffixClick={handleTogglePassword}
           />
 
           <div className={styles.loginOptions}>
