@@ -1,14 +1,11 @@
-const TOKEN_KEY = 'auth_token';
+/**
+ * @deprecated Use `TokenStorage` from `./TokenStorage` instead.
+ * This file is retained only for backward compatibility during migration.
+ */
+import { TokenStorage } from './TokenStorage';
 
-export const saveToken = (token : string) => {
-  sessionStorage.setItem(TOKEN_KEY, token);
-};
+export const saveToken = (token: string): void => TokenStorage.save(token);
+export const getToken = (): string | null => TokenStorage.get();
+export const removeToken = (): void => TokenStorage.remove();
 
-export const getToken = () => {
-  return sessionStorage.getItem(TOKEN_KEY);
-};
-
-export const removeToken = () => {
-  sessionStorage.removeItem(TOKEN_KEY);
-};
 

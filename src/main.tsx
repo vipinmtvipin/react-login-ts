@@ -1,28 +1,23 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import LoginPage from './presentation/login/Login.tsx'
-import { ToastContainer } from "react-toastify";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import AppProviders from './app/providers/AppProviders';
+import AppRoutes from './app/routes/AppRoutes';
 
-export function App() {
-  return (
-    <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        closeOnClick
-        pauseOnHover
-        draggable
-      />
-      <LoginPage />
-    </>
-  );
-}
-
+/**
+ * Application entry point.
+ *
+ * `AppProviders` wraps the tree with all global context providers
+ * (BrowserRouter, AuthProvider, ToastContainer).
+ *
+ * `AppRoutes` defines the route configuration and handles lazy loading,
+ * protected routes, and guest routes.
+ */
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App/>
+    <AppProviders>
+      <AppRoutes />
+    </AppProviders>
   </StrictMode>,
-)
-
+);
 
